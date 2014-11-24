@@ -1,4 +1,3 @@
-
 /**
  * Write a description of class MailItem here.
  * 
@@ -7,14 +6,17 @@
  */
 public class MailItem
 {
-    //de quien viene el mensaje
+    //Emisor del mensaje
     private String from;
-    //para quien va dirigido el mensaje
+    
+    //Destinatario del mensaje
     private String to;
-    //texto del mensaje
+    
+    //Texto del mensaje
     private String message;
+   
     /**
-     * constructor que fija por parametros origen destino y mensaje
+     * Constructor que fija por parametros origen, destino y mensaje
      */
     public MailItem(String newFrom, String newTo, String newMessage)
     {
@@ -24,14 +26,15 @@ public class MailItem
     }
     
     /**
-     * devuelve valor de from
+     * Devuelve valor de emisor
      */
     public String getFrom()
     {
         return from;
     }
+    
     /**
-     * devuelve valor de to
+     * Devuelve valor de destinatario
      */
     public String getTo()
     {
@@ -39,7 +42,7 @@ public class MailItem
     }
     
     /**
-     * devuelve valor de to
+     * Devuelve el mensaje
      */
     public String getMassage()
     {
@@ -47,7 +50,7 @@ public class MailItem
     }
     
     /**
-     * realiza la impresion del mensage
+     * Realiza la impresion del mensage
      */
     public void print()
     {

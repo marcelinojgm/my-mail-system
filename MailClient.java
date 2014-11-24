@@ -8,13 +8,14 @@
 public class MailClient
 {
     
-    //servidor asociado con ese cliente
+    //Servidor asociado con ese cliente
     private MailServer server;
-    //representa la dirección de correo del usuario que usa ese cliente
+    
+    //Direción de correo del usuario
     private String user;
 
     /**
-     * inicializa indicando el servidor y el usuario por parametros
+     * Inicializa indicando el servidor y el usuario por parametros
      */
     public MailClient(String newUser, MailServer nameServer)
     {
@@ -23,7 +24,7 @@ public class MailClient
     }
 
     /**
-     * devuelve el siguiente mensaje
+     * Devuelve el siguiente mensaje
      */
     public MailItem getNextMailItem()
     {
@@ -31,31 +32,39 @@ public class MailClient
     }
     
     /**
-     * recupera del servidor el siguiente correo  
-     * imprime por pantalla los datos de dicho mensaje.
-     * si no hay imprime mensaje de error
+     * Recupera del servidor el siguiente correo,  
+     * imprime por pantalla los datos de dicho mensaje,
+     * si no hay, imprime mensaje de error
      */
     public void printNextMailItem()
     {
+        //Primer correo en cola
         MailItem mail = server.getNextMailItem(user);
-        if (mail == null)
+        
+        //No hay correo
+        if (mail == null)   
         {
-            System.out.println("Error: no tiene mensajes nuevos");
+            System.out.println("Error: no hay mas mensajes");
           
         }
-        else
+        //Hay correo
+        else                
         {      
             mail.print();
         }
     }
     
     /**
-     * crea un mail y lo manda al servidor correspondiente
+     * Crea un mail y lo manda al servidor correspondiente
+     * pasado por parametros destinatario y mensaje del correo
      */
     public void sendMailItem(String newTo, String newMessage)
     {
+        //Nuevo correo
         MailItem newMail;
         newMail = new MailItem(user, newTo, newMessage);
+        
+        //Mandado del correo creado al servidor
         server.post(newMail);
     }
 }
