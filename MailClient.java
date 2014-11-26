@@ -67,4 +67,16 @@ public class MailClient
         //Mandado del correo creado al servidor
         server.post(newMail);
     }
+    
+    /**
+     * retorna con el numero de correos que hay almacenados en el servidor del cliente
+     */
+    
+    public int howManyMailItems()
+    {
+        return server.howManyMailItems(user);
+    }
+    
+    
 }
+
