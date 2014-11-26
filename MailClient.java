@@ -58,11 +58,11 @@ public class MailClient
      * Crea un mail y lo manda al servidor correspondiente
      * pasado por parametros destinatario y mensaje del correo
      */
-    public void sendMailItem(String newTo, String newMessage)
+    public void sendMailItem(String to, String subject, String message)
     {
         //Nuevo correo
         MailItem newMail;
-        newMail = new MailItem(user, newTo, newMessage);
+        newMail = new MailItem(user, to, subject, message);
         
         //Mandado del correo creado al servidor
         server.post(newMail);
