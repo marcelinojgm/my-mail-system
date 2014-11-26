@@ -1,6 +1,6 @@
 
 /**
- * Write a description of class MailClient here.
+ * Representa un cliente/usuario de correo de un server
  * 
  * @author (your name) 
  * @version (a version number or a date)
@@ -17,10 +17,10 @@ public class MailClient
     /**
      * Inicializa indicando el servidor y el usuario por parametros
      */
-    public MailClient(String newUser, MailServer nameServer)
+    public MailClient(String user, MailServer server)
     {
-        server = nameServer;
-        user   = newUser;
+        this.server = server;
+        this.user   = user;
     }
 
     /**

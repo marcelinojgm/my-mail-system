@@ -1,5 +1,5 @@
 /**
- * Write a description of class MailItem here.
+ * Representa un correo electronico.
  * 
  * @author (your name) 
  * @version (a version number or a date)
@@ -18,11 +18,11 @@ public class MailItem
     /**
      * Constructor que fija por parametros origen, destino y mensaje
      */
-    public MailItem(String newFrom, String newTo, String newMessage)
+    public MailItem(String from, String to, String message)
     {
-        from    = newFrom;
-        to      = newTo;
-        message = newMessage;
+        this.from    = from;
+        this.to      = to;
+        this.message = message;
     }
     
     /**
