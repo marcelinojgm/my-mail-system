@@ -58,9 +58,9 @@ public class MailItem
      */
     public void print()
     {
-        System.out.println("From: " + from);
-        System.out.println("To: "   + to);
-        System.out.println("subject" + subject);
+        System.out.println("From: "     + from);
+        System.out.println("To: "       + to);
+        System.out.println("subject: "  + subject);
         System.out.println(message);
     }
 }
