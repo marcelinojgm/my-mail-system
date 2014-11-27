@@ -45,6 +45,14 @@ public class MailItem
         return to;
     }
     
+    
+    /**
+     * devuelve asunto
+     */
+    public String getSubject()
+    {
+        return subject;
+    }
     /**
      * Devuelve el mensaje
      */
@@ -52,7 +60,6 @@ public class MailItem
     {
         return message;
     }
-    
     /**
      * Realiza la impresion del mensage
      */
