@@ -123,9 +123,11 @@ public class MailClient
      * retorna con el numero de correos que hay almacenados en el servidor del cliente
      */
     
-    public int howManyMailItems()
+    public void howManyMailItems()
     {
-        return server.howManyMailItems(user);
+        int numberMailItem = server.howManyMailItems(user);
+        System.out.println(numberMailItem + " in the Inbox");
+        
     }
     
     /**
