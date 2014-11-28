@@ -18,16 +18,58 @@ public class MailClient
     private boolean onOffAutoReply;
     private String textAutoReply;
     private MailItem lastImailItem;
+    
     private int sendMail;
     private int getMail;
     private int numberSpam;
     
+ 
+    /**
+     * Inicializa indicando el servidor y el usuario por parametros
+     */
+    public MailClient(String user, MailServer server)
+    {
+         //configuracion cuenta nombre de usuario y servidor al que pertenece
+         this.server = server;
+         this.user   = user;
+        
+         //autorespuesta desactivada por defecto
+         this.onOffAutoReply = false;
+         this.textAutoReply  = "";
+         this.lastImailItem  = null;
+        
+         this.sendMail   = 0;
+         this.getMail    = 0;
+         this.numberSpam = 0;
+    }
     /*
+     * metodo que muestra estadisticas
+     */
+    public void stadist()
+    {
+        double porSpam;
+        if(this.getMail != 0)
+        {
+            porSpam = this.numberSpam / this.getMail*100; 
+        }
+        else
+        {
+            porSpam = 0;
+        }
+        
+        System.out.print("mensajes enviados: "           + this.sendMail    + "\n" +
+                         "mensajes recividos: "          + this.getMail     + "\n" +
+                         "mensajes de spam recividos: "  + this.numberSpam  + "\n" +
+                         "porcentaje de spam recivido: " + porSpam + "%");
+    }
+    
+       /*
      * detecta si el ultimo correo recivido es spam
      */
     private boolean spam()
     {
         boolean spam = false;
+        
         if (this.lastImailItem.getMassage().contains("proyecto"))
         {
             spam = false;
@@ -35,27 +77,15 @@ public class MailClient
         else if(this.lastImailItem.getMassage().contains("oferta"))
         {
             spam = true;
+            this.numberSpam = this.numberSpam + 1;
         }
         else if(this.lastImailItem.getMassage().contains("viagra"))
         {
             spam = true;
+            this.numberSpam = this.numberSpam + 1;
         }
-        return spam;
-    }
-    
-    /**
-     * Inicializa indicando el servidor y el usuario por parametros
-     */
-    public MailClient(String user, MailServer server)
-    {
-        //configuracion cuenta nombre de usuario y servidor al que pertenece
-        this.server = server;
-        this.user   = user;
         
-        //autorespuesta desactivada por defecto
-        this.onOffAutoReply = false;
-        this.textAutoReply  = "";
-        this.lastImailItem  = null;
+        return spam;
     }
     
     /**
@@ -86,7 +116,11 @@ public class MailClient
     public MailItem getNextMailItem()
     {
         lastImailItem =  server.getNextMailItem(user);
-         
+        this.getMail = this.getMail + 1;
+        if(spam())
+        {
+            this.numberSpam = this.numberSpam + 1;
+        }
         return lastImailItem;
     }
          
@@ -167,6 +201,7 @@ public class MailClient
         
         //Mandado del correo creado al servidor
         server.post(newMail);
+        this.sendMail = this.sendMail + 1;
     }
     
     /**
@@ -206,7 +241,7 @@ public class MailClient
                                  "Subject: " + subject + "\n" + 
                                  //texto del mensaje al que se contesta
                                  message);                    
-        server.post(mailReply);
+                                 server.post(mailReply);
     }
     
     /*
