@@ -18,6 +18,30 @@ public class MailClient
     private boolean onOffAutoReply;
     private String textAutoReply;
     private MailItem lastImailItem;
+    private int sendMail;
+    private int getMail;
+    private int numberSpam;
+    
+    /*
+     * detecta si el ultimo correo recivido es spam
+     */
+    private boolean spam()
+    {
+        boolean spam = false;
+        if (this.lastImailItem.getMassage().contains("proyecto"))
+        {
+            spam = false;
+        }
+        else if(this.lastImailItem.getMassage().contains("oferta"))
+        {
+            spam = true;
+        }
+        else if(this.lastImailItem.getMassage().contains("viagra"))
+        {
+            spam = true;
+        }
+        return spam;
+    }
     
     /**
      * Inicializa indicando el servidor y el usuario por parametros
@@ -33,14 +57,25 @@ public class MailClient
         this.textAutoReply  = "";
         this.lastImailItem  = null;
     }
+    
     /**
      * imprime el ultimo email recivido
      */
     public void printLastEmailItem()
     {
         if(lastImailItem != null)
-        {
-            lastImailItem.print();
+        {   
+            boolean spam = spam();
+                  
+            if(spam)
+            {
+                System.out.println("mail is spam");
+            }
+            else
+            {
+                lastImailItem.print();
+            }
+        
         }
         
     }
@@ -51,6 +86,7 @@ public class MailClient
     public MailItem getNextMailItem()
     {
         lastImailItem =  server.getNextMailItem(user);
+         
         return lastImailItem;
     }
          
