@@ -139,23 +139,32 @@ public class MailClient
         MailItem mailReply;
             
         //destinatario
-        String from = mail.getFrom();
+        String from    = mail.getFrom();
         String message = mail.getMassage();
         String subject = mail.getSubject();
        
         //creacion del mensaje de respuesta y envio al emisor del mesaje recibido
-        mailReply = new MailItem(user, from , "Auto reply", this.textAutoReply  + "\n" + //texto del mensaje automatico
-                                                            "RE: "              + "\n" +             
-                                                            "From: "  + from    + "\n" + //persona a la que contesta automaticamente
-                                                            "Subject: " + subject + "\n" + //asunto del mensaje al que se contesta
-                                                            message);                    //texto del mensaje al que se contesta   
+                                                                
+        mailReply = new MailItem(user, from , "Auto reply", 
+                                 //texto del mensaje automatico   
+                                 this.textAutoReply    + "\n" + 
+                                 //respuesta a:
+                                 "RE: "                + "\n" + 
+                                 //persona a la que contesta automaticamente                           
+                                 "From: "  + from      + "\n" + 
+                                 //asunto del mensaje al que se contesta
+                                 "Subject: " + subject + "\n" + 
+                                 //texto del mensaje al que se contesta
+                                 message);                    
         server.post(mailReply);
     }
     
     /*
-     * obtiene el siguiente mensaje del servidor 
+     * Obtiene el siguiente mensaje del servidor 
      * y envia automaticamente un mensaje de respuesta 
-     * si esta activada esta opcion si no solo recibe el mail
+     * si esta activada esta opcion 
+     * si no solo recibe mostrara un mensaje 
+     * de aviso de opcion desactivada
      */
     public MailItem getNextMailItemAndAutorespond()
     {
@@ -174,19 +183,13 @@ public class MailClient
             //la opcion de respuesta automatica no esta activada
             else
             {
-                //informa que la opcion esta desactivada y la activa
-                System.out.println("The auto reply is disabled");
-                System.out.println("The auto reply option is automatically activated");
-                setOnOffAutoReply();
-                
-                //contesta automaticamente
-                sendMailAutorespond(mail);
+                System.out.println("Auto reply is off");
             }
         }
         //si no hay mensajes
         else
         {
-          System.out.println("error: no se han encontrado nuevos mensajes");
+          System.out.println("error: no e-mail inbox");
         }
         
         return mail;
