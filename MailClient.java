@@ -17,6 +17,7 @@ public class MailClient
     //activa/desactiva autocontestar
     private boolean onOffAutoReply;
     private String textAutoReply;
+    private MailItem lastImailItem;
     
     /**
      * Inicializa indicando el servidor y el usuario por parametros
@@ -30,14 +31,27 @@ public class MailClient
         //autorespuesta desactivada por defecto
         this.onOffAutoReply = false;
         this.textAutoReply  = "";
+        this.lastImailItem  = null;
     }
-
+    /**
+     * imprime el ultimo email recivido
+     */
+    public void printLastEmailItem()
+    {
+        if(lastImailItem != null)
+        {
+            lastImailItem.print();
+        }
+        
+    }
+    
     /**
      * Devuelve el siguiente mensaje
      */
     public MailItem getNextMailItem()
     {
-          return server.getNextMailItem(user);
+        lastImailItem =  server.getNextMailItem(user);
+        return lastImailItem;
     }
          
      /**
